@@ -2,6 +2,7 @@ package ek.osnb.starter.service;
 
 import ek.osnb.starter.exceptions.NotFoundException;
 import ek.osnb.starter.model.Movie;
+import ek.osnb.starter.model.MovieDTO;
 import ek.osnb.starter.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +25,14 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Movie getMovieById(Long id) {
-        Optional<Movie> movieOptional = movieRepository.findById(id);
-        if (movieOptional.isEmpty()) {
-            throw new NotFoundException("Movie not found with id: " + id);
-        }
-        // Or use shortcut:
-        // return movieRepository.findById(id).orElseThrow(() -> new NotFoundException("Movie not found with id: " + id));
+    public MovieDTO getMovieById(Long id) {
+        Movie movie = movieRepository.findById(id).orElseThrow(() -> new NotFoundException("Movie not found with id:" + id));
 
-        return movieOptional.get();
+        return new MovieDTO(
+                movie.getTitle(),
+                movie.getReleaseYear(),
+                movie.getGenre()
+        );
     }
 
     public void deleteMovie(Long id) {

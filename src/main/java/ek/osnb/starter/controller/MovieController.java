@@ -1,6 +1,7 @@
 package ek.osnb.starter.controller;
 
 import ek.osnb.starter.model.Movie;
+import ek.osnb.starter.model.MovieDTO;
 import ek.osnb.starter.service.MovieService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
+    public ResponseEntity<MovieDTO> getMovieById(@PathVariable Long id) {
         return ResponseEntity.ok(movieService.getMovieById(id));
     }
 

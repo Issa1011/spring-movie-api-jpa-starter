@@ -1,6 +1,7 @@
 package ek.osnb.starter.controller;
 
 import ek.osnb.starter.model.Actor;
+import ek.osnb.starter.model.ActorDTO;
 import ek.osnb.starter.service.ActorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class ActorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Actor> getActorById(@PathVariable Long id) {
+    public ResponseEntity<ActorDTO> getActorById(@PathVariable Long id) {
         return ResponseEntity.ok(actorService.getActorById(id));
     }
 }

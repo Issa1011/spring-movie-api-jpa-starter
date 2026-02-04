@@ -2,6 +2,7 @@ package ek.osnb.starter.service;
 
 import ek.osnb.starter.exceptions.NotFoundException;
 import ek.osnb.starter.model.Actor;
+import ek.osnb.starter.model.ActorDTO;
 import ek.osnb.starter.repository.ActorRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +25,12 @@ public class ActorService {
         return actorRepository.findAll();
     }
 
-    public Actor getActorById(Long id) {
-        Optional<Actor> actorOptional = actorRepository.findById(id);
-        if (actorOptional.isEmpty()) {
-            throw new NotFoundException("Actor not found with id: " + id);
-        }
-        // Or use shortcut:
-        // return actorRepository.findById(id).orElseThrow(() -> new NotFoundException("Actor not found with id: " + id));
+    public ActorDTO getActorById(Long id) {
+        Actor actor = actorRepository.findById(id).orElseThrow(() -> new NotFoundException("Actor not found with id" + id));
 
-        return actorOptional.get();
+        return new ActorDTO(
+                actor.getName(),
+                actor.getBirthYear()
+        );
     }
 }
